@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENA Wiki</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #2d2d2d 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "📚";
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            background: white;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #333, #000);
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(45deg, #444, #111);
+        }
+
+        .features {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 4rem 0;
+            margin: 3rem 0;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #fff;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .feature-card p {
+            color: #ccc;
+            line-height: 1.7;
+        }
+
+        .popular-pages {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3rem 0;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .popular-pages h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .page-card {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            color: #fff;
+        }
+
+        .page-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .page-card h3 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .page-card p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .stats {
+                gap: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">ENA Wiki</a>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showAlert('Browse')">Browse</a></li>
+                <li><a href="#" onclick="showAlert('Categories')">Categories</a></li>
+                <li><a href="#" onclick="showAlert('Recent Changes')">Recent Changes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Welcome to the ENA Wiki</h1>
+            <p>A knowledge base for all things ENA. Search, explore, and contribute to our growing collection of articles.</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search for articles, topics, or anything..." id="searchInput">
+                <button class="search-btn" onclick="performSearch()">Search</button>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Knowledge Base</h2>
+            <div class="feature-grid">
+                <div class="feature-card" onclick="showAlert('Featured Articles')">
+                    <span class="feature-icon">⭐</span>
+                    <h3>Featured Articles</h3>
+                    <p>Discover our highest quality, comprehensive articles that showcase the best of our community's work.</p>
+                </div>
+                <div class="feature-card" onclick="showAlert('Recent Updates')">
+                    <span class="feature-icon">🔄</span>
+                    <h3>Recent Updates</h3>
+                    <p>Stay current with the latest changes, additions, and improvements made by our active community.</p>
+                </div>
+                <div class="feature-card" onclick="showAlert('Categories')">
+                    <span class="feature-icon">📂</span>
+                    <h3>Browse Categories</h3>
+                    <p>Navigate through organized topics and subjects to find exactly what you're looking for.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="popular-pages">
+            <h2>Popular Articles</h2>
+            <div class="page-grid">
+                <div class="page-card" onclick="showAlert('Getting Started Guide')">
+                    <h3>Getting Started Guide</h3>
+                    <p>Learn how to navigate, search, and contribute to our wiki platform effectively.</p>
+                </div>
+                <div class="page-card" onclick="showAlert('Community Guidelines')">
+                    <h3>Community Guidelines</h3>
+                    <p>Understand our principles for maintaining a respectful and collaborative environment.</p>
+                </div>
+                <div class="page-card" onclick="showAlert('Editing Tutorial')">
+                    <h3>Editing Tutorial</h3>
+                    <p>Master the art of wiki editing with our comprehensive step-by-step tutorial.</p>
+                </div>
+                <div class="page-card" onclick="showAlert('FAQ')">
+                    <h3>Frequently Asked Questions</h3>
+                    <p>Find answers to common questions about using and contributing to WikiHub.</p>
+                </div>
+                <div class="page-card" onclick="showAlert('Style Manual')">
+                    <h3>Style Manual</h3>
+                    <p>Guidelines for formatting, writing style, and maintaining consistency across articles.</p>
+                </div>
+                <div class="page-card" onclick="showAlert('Templates')">
+                    <h3>Template Library</h3>
+                    <p>Pre-designed templates to help structure your articles and maintain visual consistency.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ENA Wiki. Built with passion for knowledge sharing. <a href="#" onclick="showAlert('Privacy Policy')" style="color: #fff; text-decoration: underline;">Privacy Policy</a> | <a href="#" onclick="showAlert('Terms of Service')" style="color: #fff; text-decoration: underline;">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Search functionality
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            if (searchTerm) {
+                showAlert(`Searching for: "${searchTerm}"`);
+                // In a real wiki, this would redirect to search results
+                // window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+            } else {
+                showAlert('Please enter a search term');
+            }
+        }
+
+        // Enter key support for search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Placeholder function for navigation
+        function showAlert(action) {
+            alert(`This would navigate to: ${action}\n\nIn a real wiki, this would link to the actual ${action.toLowerCase()} page.`);
+        }
+
+        // Run animations when page loads
+        window.addEventListener('load', () => {
+            // Statistics animation removed
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.feature-card, .page-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.cursor = 'pointer';
+            });
+        });
+    </script>
+</body>
+</html>
